@@ -53,13 +53,37 @@ req = urllib.request.Request(
     headers={"Content-Type": "application/json"}
 )
 
-try:
-    with urllib.request.urlopen(req, timeout=120) as r:
-        data = json.load(r)
-        response_text = data["candidates"][0]["content"]["parts"][0]["text"]
-except Exception as e:
-    print(f"ERROR calling Gemini: {e}", file=sys.stderr)
-    sys.exit(1)
+import time
+
+max_retries = 3
+retry_delay = 60
+
+for attempt in range(max_retries):
+    try:
+        # Rebuild request each attempt
+        req = urllib.request.Request(
+            gemini_url,
+            data=payload,
+            headers={"Content-Type": "application/json"}
+        )
+        with urllib.request.urlopen(req, timeout=120) as r:
+            data = json.load(r)
+            response_text = data["candidates"][0]["content"]["parts"][0]["text"]
+        break  # Success
+    except urllib.error.HTTPError as e:
+        if e.code == 429:
+            wait = retry_delay * (attempt + 1)
+            print(f"Rate limited. Waiting {wait}s before retry {attempt+1}/{max_retries}...", file=sys.stderr)
+            time.sleep(wait)
+            if attempt == max_retries - 1:
+                print(f"ERROR: Max retries exceeded", file=sys.stderr)
+                sys.exit(1)
+        else:
+            print(f"ERROR calling Gemini: {e}", file=sys.stderr)
+            sys.exit(1)
+    except Exception as e:
+        print(f"ERROR calling Gemini: {e}", file=sys.stderr)
+        sys.exit(1)
 
 # Parse and write wiki pages
 pages = re.split(r'===PAGE: (.+?)===', response_text)
