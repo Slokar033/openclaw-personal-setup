@@ -44,14 +44,7 @@ for (( START=1; START<=TOTAL_PAGES; START+=CHUNK_SIZE )); do
     pdftotext -f "$START" -l "$END" -layout "$PDF" - >> "$CHUNK_FILE"
 
     # Send chunk to agent for wiki ingestion
-    curl -s -X POST "${GATEWAY_URL}/v1/responses" \
-        -H "Authorization: Bearer ${GATEWAY_TOKEN}" \
-        -H "Content-Type: application/json" \
-        -d "{
-            \"model\": \"openclaw\",
-            \"input\": \"Ingest wiki chunk from file: ${CHUNK_FILE}. Extract all concepts. Create new wiki pages or append to existing ones if they already exist. Do not duplicate content.\",
-            \"stream\": false
-        }" > /dev/null
+    openclaw message send --channel telegram --target "6602466596" --account main --message "Ingest wiki chunk from file: ${CHUNK_FILE}. Extract all concepts. Create new wiki pages or append to existing ones if they already exist. Do not duplicate content." > /dev/null 2>&1
 
     echo "Chunk $CHUNK_NUM done. Waiting before next chunk..."
     sleep 5
