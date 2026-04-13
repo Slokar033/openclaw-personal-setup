@@ -8,7 +8,7 @@ RAW_DIR="/root/llm-wikki/raw"
 WIKI_DIR="/root/llm-wikki/wiki"
 CHUNK_SIZE=40
 START_CHUNK="${2:-1}"  # Optional: resume from chunk number
-GEMINI_MODEL="gemini-3.1-pro-preview"
+GEMINI_MODEL="gemini-2.5-flash"
 GEMINI_URL="https://generativelanguage.googleapis.com/v1beta/models/${GEMINI_MODEL}:generateContent?key=${GEMINI_API_KEY}"
 
 if [ -z "$PDF" ]; then
