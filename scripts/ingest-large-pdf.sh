@@ -60,13 +60,6 @@ done
 echo "All $CHUNK_NUM chunks processed. Sending Telegram notification..."
 
 # Notify via agent
-curl -s -X POST "${GATEWAY_URL}/v1/responses" \
-    -H "Authorization: Bearer ${GATEWAY_TOKEN}" \
-    -H "Content-Type: application/json" \
-    -d "{
-        \"model\": \"openclaw\",
-        \"input\": \"Send this to Dan via Telegram: ✅ ${FILENAME} ingestion complete. Processed ${CHUNK_NUM} chunks across ${TOTAL_PAGES} pages. Wiki has been updated.\",
-        \"stream\": false
-    }" > /dev/null
+openclaw message send --channel telegram --target "6602466596" --message "✅ ${FILENAME} ingestion complete. Processed ${CHUNK_NUM} chunks across ${TOTAL_PAGES} pages. Wiki has been updated."
 
 echo "Done."
