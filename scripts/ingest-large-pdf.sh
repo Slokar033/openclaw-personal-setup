@@ -56,7 +56,7 @@ for (( START=1; START<=TOTAL_PAGES; START+=CHUNK_SIZE )); do
     fi
 
     echo "Chunk $CHUNK_NUM done. Waiting before next chunk..."
-    sleep 60
+    sleep 15
 done
 
 echo "All $CHUNK_NUM chunks processed. Sending Telegram notification..."
