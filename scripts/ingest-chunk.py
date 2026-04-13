@@ -56,7 +56,7 @@ req = urllib.request.Request(
 import time
 
 max_retries = 3
-retry_delay = 60
+retry_delay = 90
 
 for attempt in range(max_retries):
     try:
