@@ -1,0 +1,5 @@
+*.bak
+*.log
+google-token.json
+exec-approvals.json
+openclaw.json
