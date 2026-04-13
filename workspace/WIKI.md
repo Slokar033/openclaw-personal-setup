@@ -73,3 +73,10 @@ If the source document has detail, the wiki page must capture that detail.
 3. Identify pages with no incoming links (orphans)
 4. List raw/ files not yet ingested
 5. Suggest missing concept pages based on referenced but absent topics
+
+## When message contains "ingest chunk: <path>":
+1. Use wiki-fs to read the file at <path>
+2. Extract ALL concepts, frameworks, roles, processes, definitions from the content
+3. For each concept create or append to /root/llm-wikki/wiki/<concept>.md
+4. Follow the wiki page format and depth requirements above
+5. Do NOT reply. Process silently with no confirmation message.
