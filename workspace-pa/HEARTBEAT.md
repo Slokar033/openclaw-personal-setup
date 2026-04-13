@@ -1,17 +1,31 @@
 # PA Heartbeat Instructions
 
-Run these checks every 30 minutes:
+Run these checks every 30 minutes. This is for REACTIVE alerts only — not briefings.
+Briefings happen via scheduled cron jobs. Do not duplicate their content here.
 
-1. Run exec: /root/.openclaw/workspace-pa/scripts/read-mail.sh 5
-   - If any email looks urgent (keywords: urgent, ASAP, deadline, invoice, payment) → alert Dan immediately via Telegram
-   - Otherwise → note it for next scheduled check-in
+## Check 1 — Urgent emails
+Run exec: python3 /root/.openclaw/workspace-pa/scripts/read-mail.sh 10
+Alert Dan immediately via Telegram if:
+- Email from an important contact (family, key clients, colleagues)
+- Subject contains: urgent, ASAP, deadline, emergency, critical, invoice overdue
+- Otherwise → do nothing
 
-2. Run exec: /root/.openclaw/workspace-pa/scripts/read-calendar.sh 1
-   - If any event starts within 60 minutes → alert Dan via Telegram
-   - Otherwise → no action needed
+## Check 2 — Imminent calendar events
+Run exec: python3 /root/.openclaw/workspace-pa/scripts/read-calendar.sh 1
+Alert Dan via Telegram if:
+- Any event starts within 90 minutes
+- Format: "⏰ Upcoming: <event> in <X> minutes"
+- Otherwise → do nothing
 
-3. Check TASKS.md for any tasks marked #urgent
-   - If found → remind Dan via Telegram
+## Check 3 — Overdue tasks
+Run exec: python3 /root/.openclaw/workspace-pa/scripts/manage-tasks.sh list
+Alert Dan via Telegram if:
+- Any task is past its due date
+- Format: "⚠️ Overdue: <task> (was due <date>)"
+- Otherwise → do nothing
 
-If nothing needs attention → reply HEARTBEAT_OK
-Never send a Telegram message just to say everything is fine.
+## Rules
+- NEVER send a message just to say everything is fine
+- NEVER duplicate content from scheduled briefings
+- ONLY send a Telegram message if something genuinely needs attention
+- Reply HEARTBEAT_OK if nothing needs attention
