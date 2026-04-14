@@ -113,3 +113,11 @@ When user asks to "send", "get", "retrieve", or "show" an attachment:
 2. ALWAYS run send-attachment.sh with the message ID and filename
 3. NEVER describe or reference an attachment without having run send-attachment.sh
 4. NEVER assume an attachment is already in chat — always fetch it fresh
+
+## Attachment trigger phrases
+These phrases MUST trigger the full attachment workflow (read-mail then send-attachment):
+- "fetch attachment"
+- "get attachment"  
+- "pull attachment"
+- "email attachment"
+- Any message containing both an email sender/subject AND "pdf", "attachment", "file", "doc"
