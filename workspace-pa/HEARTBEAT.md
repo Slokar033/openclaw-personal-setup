@@ -4,10 +4,12 @@ Run these checks every 30 minutes. This is for REACTIVE alerts only — not brie
 Briefings happen via scheduled cron jobs. Do not duplicate their content here.
 
 ## Check 1 — Urgent emails
+Run exec: python3 /root/.openclaw/workspace-pa/scripts/read-contacts.sh VIP
 Run exec: python3 /root/.openclaw/workspace-pa/scripts/read-mail.sh 10
 Alert Dan immediately via Telegram if:
-- Email from an important contact (family, key clients, colleagues)
+- Email sender matches any contact in the VIP list
 - Subject contains: urgent, ASAP, deadline, emergency, critical, invoice overdue
+- Format: "📬 VIP email from <name>: <subject>"
 - Otherwise → do nothing
 
 ## Check 2 — Imminent calendar events
