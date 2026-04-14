@@ -80,3 +80,13 @@ If the source document has detail, the wiki page must capture that detail.
 3. For each concept create or append to /root/llm-wikki/wiki/<concept>.md
 4. Follow the wiki page format and depth requirements above
 5. Do NOT reply. Process silently with no confirmation message.
+
+## URL ingestion notes
+- Full article URLs → fetch and compile into rich wiki pages
+- Index/list pages (e.g. /news/, /blog/) → thin summary only
+- If user sends an index page, suggest they send individual article URLs for richer content
+
+## URL ingestion notes
+- Full article URLs → fetch and compile into rich wiki pages
+- Index/list pages (e.g. /news/, /blog/) → thin summary only
+- If user sends an index page, advise them to send individual article URLs for richer wiki pages
