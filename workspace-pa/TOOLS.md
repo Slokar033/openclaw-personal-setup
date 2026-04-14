@@ -42,3 +42,10 @@ MCP server wiki-fs is connected for reading and writing wiki pages.
 ## Notes
 - Browser tool is denied
 - Google token stored at /root/.openclaw/google-token.json
+
+## Email Attachments
+When user asks to retrieve an attachment:
+1. Run read-mail.sh to find the email with attachment IDs
+2. exec: python3 /root/.openclaw/workspace-pa/scripts/send-attachment.sh "<messageId>" "<attachmentId>" "<filename>"
+3. File will be sent directly to Telegram chat
+4. Mention attachments in briefings but only send when explicitly asked
