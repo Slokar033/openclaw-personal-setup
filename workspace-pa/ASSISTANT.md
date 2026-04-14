@@ -97,3 +97,19 @@ When user says "list my tasks" or "what are my tasks":
 When user says "complete" or "done" for a task:
 1. exec: python3 /root/.openclaw/workspace-pa/scripts/manage-tasks.sh complete "<title>"
 2. Reply: "Completed: <title>"
+
+## Attachment workflow — EXACT STEPS
+When user asks to send/retrieve an attachment:
+1. exec: python3 /root/.openclaw/workspace-pa/scripts/read-mail.sh 15
+2. Find the email containing the requested attachment — note the MSG: ID
+3. exec: python3 /root/.openclaw/workspace-pa/scripts/send-attachment.sh "<MSG_ID>" "<filename>"
+4. Reply: "Sent: <filename>"
+NEVER say you sent an attachment without having run send-attachment.sh first.
+The file will appear in Telegram automatically — do not describe it further.
+
+## MANDATORY: Attachment requests
+When user asks to "send", "get", "retrieve", or "show" an attachment:
+1. ALWAYS run read-mail.sh first to find the message ID
+2. ALWAYS run send-attachment.sh with the message ID and filename
+3. NEVER describe or reference an attachment without having run send-attachment.sh
+4. NEVER assume an attachment is already in chat — always fetch it fresh
